@@ -20,7 +20,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class CtripAppTests {
+public class CtripAppTests extends Base {
 	private AppiumDriver driver;
 	@BeforeMethod
 	public void setUp() throws MalformedURLException{
@@ -41,7 +41,7 @@ public class CtripAppTests {
 	
 	@Test(enabled=false)
 	public void testHotel() {
-		WebDriverWait wait=new WebDriverWait(driver,20,500);
+		AppiumDriverWait wait=new AppiumDriverWait(driver,20,500);
 		Reporter.log("点击‘酒店’");
 		WebElement hotel=wait.until( new ExpectedCondition<WebElement>(){
 			public WebElement apply(WebDriver driver){
@@ -55,7 +55,7 @@ public class CtripAppTests {
 	}
 	@Test
 	public void testHomePage() {
-		WebDriverWait wait=new WebDriverWait(driver,20,500);
+		AppiumDriverWait wait=new AppiumDriverWait(driver,20,500);
 		Reporter.log("点击‘机票’");
 		WebElement banner =wait.until( new ExpectedCondition<WebElement>(){
 			public WebElement apply(WebDriver driver){
@@ -74,7 +74,7 @@ public class CtripAppTests {
 	}
 	@Test(enabled=false)
 	public void testFlight() {
-		WebDriverWait wait=new WebDriverWait(driver,20,500);
+		AppiumDriverWait wait=new AppiumDriverWait(driver,WAIT_TIMEOUT_INSECONDS,WAIT_SLEEPINMILLS);
 		Reporter.log("点击‘机票’");
 		WebElement flight=wait.until( new ExpectedCondition<WebElement>(){
 			public WebElement apply(WebDriver driver){
