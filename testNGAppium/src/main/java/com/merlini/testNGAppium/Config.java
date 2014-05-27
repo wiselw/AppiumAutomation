@@ -15,8 +15,8 @@ public class Config {
 
     public static String getConfBykey(String key) {
     	
-    	System.out.println(Locale.getDefault());
-    	System.out.println(RESOURCE_BUNDLE.keySet().size());
+    	//System.out.println(Locale.getDefault());
+    	//System.out.println(RESOURCE_BUNDLE.keySet().size());
         String value = RESOURCE_BUNDLE.getString(key);
             try {
                 String keyValue = new String(value.getBytes("UTF-8"), "UTF-8");

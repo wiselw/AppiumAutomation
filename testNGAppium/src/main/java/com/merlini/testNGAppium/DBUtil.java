@@ -11,10 +11,9 @@ public class DBUtil {
     /**
      * 连接字符串
      */
-    //jtds:sqlserver://localhost:1433;DatabaseName=bid;instance=myInstance(非默 认实例名)
     //public static String url = "jdbc:sqlserver://192.168.43.209:50538;databaseName=ATDataBase";
     //public static String url="jdbc:sqlserver://192.168.81.16:55944;databaseName=ATDataBase";
-    public static String url="jtds:sqlserver://192.168.81.16:55944;databaseName=ATDataBase";
+    public static String url="jdbc:jtds:sqlserver://192.168.81.16:55944;databaseName=ATDataBase";
     /**
      * 用户名
      */
