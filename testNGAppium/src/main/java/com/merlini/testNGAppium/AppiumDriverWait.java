@@ -3,9 +3,7 @@ package com.merlini.testNGAppium;
 import java.util.concurrent.TimeUnit;
 
 import io.appium.java_client.AppiumDriver;
-
 import org.openqa.selenium.NotFoundException;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Clock;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Sleeper;
@@ -13,7 +11,7 @@ import org.openqa.selenium.support.ui.SystemClock;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AppiumDriverWait extends FluentWait<AppiumDriver>{
-	//Ä¬ÈÏÂÖÑ¯Ê±¼ä(ºÁÃë)
+	//é»˜è®¤è½®è¯¢æ—¶é—´(æ¯«ç§’)
 	public final static long DEFAULT_POLLINGEVERY_TIMEMILLS = Integer.parseInt(Config.getConfBykey("wait.sleepInMillis"));
 	public final static long DEFAULT_TIMEOUT_INSECONDS = Integer.parseInt(Config.getConfBykey("wait.TimeOutInSeconds"));
 	/**

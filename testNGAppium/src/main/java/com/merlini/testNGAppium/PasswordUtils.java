@@ -3,15 +3,15 @@ package com.merlini.testNGAppium;
 import java.util.List;
 
 public class PasswordUtils {
-	@CaseType(name="ÑéÖ¤ºÏ·¨ĞÔ",description="ÊÇ·ñ°üº¬·ûºÏÒªÇóµÄ×Ö·û´®")
+	@CaseType(name="éªŒè¯åˆæ³•æ€§",description="æ˜¯å¦åŒ…å«ç¬¦åˆè¦æ±‚çš„å­—ç¬¦ä¸²")
     public boolean validatePassword(String password){
     	return (password.matches("\\w*\\d\\w*"));
     }
-	@CaseType(name="ÑéÖ¤±àÂë",description="±àÂë")
+	@CaseType(name="éªŒè¯ç¼–ç ",description="ç¼–ç ")
     public String encryptPassword(String password){
     	return new StringBuilder(password).reverse().toString();
     }
-	@CaseType(name="ÑéÖ¤ÃÜÂëÊÇ·ñ´æÔÚ")
+	@CaseType(name="éªŒè¯å¯†ç æ˜¯å¦å­˜åœ¨")
     public boolean checkForNewPasswod(List<String> prevPasswords,String password){
     	return !prevPasswords.contains(password);
     }

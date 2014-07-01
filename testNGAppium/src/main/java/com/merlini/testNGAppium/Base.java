@@ -10,11 +10,11 @@ public class Base {
 	public final static int PAGE_LOAD_TIMEOUT = Integer.parseInt(Config.getConfBykey("page.load.timeout"));
 	public final static int JAVASCRIPT_EXCUTE_TIMEOUT = Integer.parseInt(Config.getConfBykey("javascript.excute.timeout"));
 	/**
-	 * AppiumDriverWait 等待时间
+	 * AppiumDriverWait 绛夊緟鏃堕棿
 	 */
 	public final static int WAIT_TIMEOUT_INSECONDS = Integer.parseInt(Config.getConfBykey("wait.TimeOutInSeconds"));
 	/**
-	 * AppiumDriverWait 轮询时间
+	 * AppiumDriverWait 杞鏃堕棿
 	 */
 	public final static int WAIT_SLEEPINMILLS=Integer.parseInt(Config.getConfBykey("wait.sleepInMillis"));
 

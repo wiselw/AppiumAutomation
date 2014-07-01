@@ -4,40 +4,39 @@ import java.sql.*;
 
 public class DBUtil {
 	/**
-     * Çı¶¯
+     * é©±åŠ¨
      */
-    //public static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
-    public static String driver = "net.sourceforge.jtds.jdbc.Driver";
+	private static String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    //private static String driver = "net.sourceforge.jtds.jdbc.Driver";
     /**
-     * Á¬½Ó×Ö·û´®
+     * è¿æ¥å­—ç¬¦ä¸²
      */
     //public static String url = "jdbc:sqlserver://192.168.43.209:50538;databaseName=ATDataBase";
     //public static String url="jdbc:sqlserver://192.168.81.16:55944;databaseName=ATDataBase";
-    public static String url="jdbc:jtds:sqlserver://192.168.81.16:55944;databaseName=ATDataBase";
+    private static String url="jdbc:jtds:sqlserver://192.168.81.16:55944;databaseName=ATDataBase";
     /**
-     * ÓÃ»§Ãû
+     * ç”¨æˆ·å
      */
-    public static String user = "uapp_autotest";
+    private static String user = "uapp_autotest";
     /**
-     * ÃÜÂë
+     * å¯†ç 
      */
-    public static String password = "1qaz@wsx";
+    private static String password = "1qaz@wsx";
     /**
-     * ²»ÔÊĞíÊµÀı»¯¸ÃÀà
+     * ä¸å…è®¸å®ä¾‹åŒ–è¯¥ç±»
      */
     private DBUtil()
     {
     }
     /**
-     * »ñÈ¡Ò»¸öÊı¾İ¿âÁ¬½Ó
-     * Í¨¹ıÉèÖÃÀàµÄ  driver / url / user / password ÕâËÄ¸ö¾²Ì¬±äÁ¿À´ ÉèÖÃÊı¾İ¿âÁ¬½ÓÊôĞÔ
-     * @return Êı¾İ¿âÁ¬½Ó
+     * è·å–ä¸€ä¸ªæ•°æ®åº“è¿æ¥
+     * é€šè¿‡è®¾ç½®ç±»çš„  driver / url / user / password è¿™å››ä¸ªé™æ€å˜é‡æ¥ è®¾ç½®æ•°æ®åº“è¿æ¥å±æ€§
+     * @return æ•°æ®åº“è¿æ¥
      */
     public static Connection getConnection()
     {
         try
         {
-            // »ñÈ¡Çı¶¯,ÕâÀïÊ¹ÓÃµÄÊÇ sqljdbc_1.2.2828.100_chs.exe,²»Í¬°æ±¾µÄÇı¶¯,Óï¾äÓĞËù²»Í¬
             Class.forName(driver);
         } catch (ClassNotFoundException ex)
         {
@@ -53,9 +52,49 @@ public class DBUtil {
         }
     }
     /**
-     * »ñÈ¡Ò»¸ö Statement
-     * ¸Ã Statement ÒÑ¾­ÉèÖÃÊı¾İ¼¯ ¿ÉÒÔ¹ö¶¯,¿ÉÒÔ¸üĞÂ
-     * @return Èç¹û»ñÈ¡Ê§°Ü½«·µ»Ø null,µ÷ÓÃÊ±¼ÇµÃ¼ì²é·µ»ØÖµ
+     * è·å–ä¸€ä¸ªæ•°æ®åº“è¿æ¥
+     * @param connecturl æ•°æ®åº“url,å¦‚jdbc:sqlserver://192.168.81.16:55944;databaseName=ATDataBase
+     * @param username   ç”¨æˆ·å
+     * @param pswï¼šå¯†ç 
+     * @return
+     */
+    public static Connection getConnection(String connecturl,String username,String psw)
+    {
+    	url=connecturl;
+    	user=username;
+    	password=psw;
+    	return getConnection();       
+    }
+    /**
+     * è·å–ä¸€ä¸ªæ•°æ®åº“è¿æ¥,é‡‡ç”¨integratedSecurity=trueçš„æ¨¡å¼ï¼ˆç³»ç»Ÿè´¦æˆ·ç™»å½•ï¼Œéœ€è¦å°†sqljdbc_auth.dllæ”¾åˆ°C:\Java\jdk1.7.0_05\binï¼‰
+     * @param connecturl æ•°æ®åº“url å¦‚jdbc:sqlserver://192.168.81.16:55944;databaseName=userdb;integratedSecurity=true;
+     * @return
+     */
+    public static Connection getConnection(String connecturl)
+    {
+    	url=connecturl;
+    	user="";
+    	password="";
+    	try
+        {
+            Class.forName(driver);
+        } catch (ClassNotFoundException ex)
+        {
+        	ex.printStackTrace();
+        }
+        try
+        {
+            return DriverManager.getConnection(url);
+        } catch (SQLException ex)
+        {
+        	ex.printStackTrace();
+            return null;
+        }
+    }
+    /**
+     * è·å–ä¸€ä¸ª Statement
+     * è¯¥ Statement å·²ç»è®¾ç½®æ•°æ®é›† å¯ä»¥æ»šåŠ¨,å¯ä»¥æ›´æ–°
+     * @return å¦‚æœè·å–å¤±è´¥å°†è¿”å› null,è°ƒç”¨æ—¶è®°å¾—æ£€æŸ¥è¿”å›å€¼
      */
     public static Statement getStatement()
     {
@@ -68,7 +107,7 @@ public class DBUtil {
         {
             return conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,
                     ResultSet.CONCUR_UPDATABLE);
-        // ÉèÖÃÊı¾İ¼¯¿ÉÒÔ¹ö¶¯,¿ÉÒÔ¸üĞÂ
+        // è®¾ç½®æ•°æ®é›†å¯ä»¥æ»šåŠ¨,å¯ä»¥æ›´æ–°
         } catch (SQLException ex)
         {
         	ex.printStackTrace();
@@ -77,10 +116,10 @@ public class DBUtil {
         return null;
     }
     /**
-     * »ñÈ¡Ò»¸ö Statement
-     * ¸Ã Statement ÒÑ¾­ÉèÖÃÊı¾İ¼¯ ¿ÉÒÔ¹ö¶¯,¿ÉÒÔ¸üĞÂ
-     * @param conn Êı¾İ¿âÁ¬½Ó
-     * @return Èç¹û»ñÈ¡Ê§°Ü½«·µ»Ø null,µ÷ÓÃÊ±¼ÇµÃ¼ì²é·µ»ØÖµ
+     * è·å–ä¸€ä¸ª Statement
+     * è¯¥ Statement å·²ç»è®¾ç½®æ•°æ®é›† å¯ä»¥æ»šåŠ¨,å¯ä»¥æ›´æ–°
+     * @param conn æ•°æ®åº“è¿æ¥
+     * @return å¦‚æœè·å–å¤±è´¥å°†è¿”å› null,è°ƒç”¨æ—¶è®°å¾—æ£€æŸ¥è¿”å›å€¼
      */
     public static Statement getStatement(Connection conn)
     {
@@ -91,7 +130,7 @@ public class DBUtil {
         try
         {
             return conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        // ÉèÖÃÊı¾İ¼¯¿ÉÒÔ¹ö¶¯,¿ÉÒÔ¸üĞÂ
+        // è®¾ç½®æ•°æ®é›†å¯ä»¥æ»šåŠ¨,å¯ä»¥æ›´æ–°
         } catch (SQLException ex)
         {
         	ex.printStackTrace();
@@ -99,11 +138,11 @@ public class DBUtil {
         }
     }
     /**
-     * »ñÈ¡Ò»¸ö´ø²ÎÊıµÄ PreparedStatement
-     * ¸Ã PreparedStatement ÒÑ¾­ÉèÖÃÊı¾İ¼¯ ¿ÉÒÔ¹ö¶¯,¿ÉÒÔ¸üĞÂ
-     * @param cmdText ĞèÒª ? ²ÎÊıµÄ SQL Óï¾ä
-     * @param cmdParams SQL Óï¾äµÄ²ÎÊı±í
-     * @return Èç¹û»ñÈ¡Ê§°Ü½«·µ»Ø null,µ÷ÓÃÊ±¼ÇµÃ¼ì²é·µ»ØÖµ
+     * è·å–ä¸€ä¸ªå¸¦å‚æ•°çš„ PreparedStatement
+     * è¯¥ PreparedStatement å·²ç»è®¾ç½®æ•°æ®é›† å¯ä»¥æ»šåŠ¨,å¯ä»¥æ›´æ–°
+     * @param cmdText éœ€è¦ ? å‚æ•°çš„ SQL è¯­å¥
+     * @param cmdParams SQL è¯­å¥çš„å‚æ•°è¡¨
+     * @return å¦‚æœè·å–å¤±è´¥å°†è¿”å› null,è°ƒç”¨æ—¶è®°å¾—æ£€æŸ¥è¿”å›å€¼
      */
     public static PreparedStatement getPreparedStatement(String cmdText, Object... cmdParams)
     {
@@ -130,12 +169,12 @@ public class DBUtil {
         return pstmt;
     }
     /**
-     *  »ñÈ¡Ò»¸ö´ø²ÎÊıµÄ PreparedStatement
-     * ¸Ã PreparedStatement ÒÑ¾­ÉèÖÃÊı¾İ¼¯ ¿ÉÒÔ¹ö¶¯,¿ÉÒÔ¸üĞÂ
-     * @param conn Êı¾İ¿âÁ¬½Ó
-     * @param cmdText ĞèÒª ? ²ÎÊıµÄ SQL Óï¾ä
-     * @param cmdParams SQL Óï¾äµÄ²ÎÊı±í
-     * @return Èç¹û»ñÈ¡Ê§°Ü½«·µ»Ø null,µ÷ÓÃÊ±¼ÇµÃ¼ì²é·µ»ØÖµ
+     *  è·å–ä¸€ä¸ªå¸¦å‚æ•°çš„ PreparedStatement
+     * è¯¥ PreparedStatement å·²ç»è®¾ç½®æ•°æ®é›† å¯ä»¥æ»šåŠ¨,å¯ä»¥æ›´æ–°
+     * @param conn æ•°æ®åº“è¿æ¥
+     * @param cmdText éœ€è¦ ? å‚æ•°çš„ SQL è¯­å¥
+     * @param cmdParams SQL è¯­å¥çš„å‚æ•°è¡¨
+     * @return å¦‚æœè·å–å¤±è´¥å°†è¿”å› null,è°ƒç”¨æ—¶è®°å¾—æ£€æŸ¥è¿”å›å€¼
      */
     public static PreparedStatement getPreparedStatement(Connection conn, String cmdText, Object... cmdParams)
     {
@@ -161,10 +200,10 @@ public class DBUtil {
         return pstmt;
     }
     /**
-     * Ö´ĞĞ SQL Óï¾ä,·µ»Ø½á¹ûÎªÕûĞÍ
-     * Ö÷ÒªÓÃÓÚÖ´ĞĞ·Ç²éÑ¯Óï¾ä
-     * @param cmdText SQL Óï¾ä
-     * @return ·Ç¸ºÊı:Õı³£Ö´ĞĞ; -1:Ö´ĞĞ´íÎó; -2:Á¬½Ó´íÎó
+     * æ‰§è¡Œ SQL è¯­å¥,è¿”å›ç»“æœä¸ºæ•´å‹
+     * ä¸»è¦ç”¨äºæ‰§è¡ŒéæŸ¥è¯¢è¯­å¥
+     * @param cmdText SQL è¯­å¥
+     * @return éè´Ÿæ•°:æ­£å¸¸æ‰§è¡Œ; -1:æ‰§è¡Œé”™è¯¯; -2:è¿æ¥é”™è¯¯
      */
     public static int ExecSql(String cmdText)
     {
@@ -186,10 +225,10 @@ public class DBUtil {
         return i;
     }
     /**
-     * Ö´ĞĞ SQL Óï¾ä,·µ»Ø½á¹ûÎªÕûĞÍ
-     * Ö÷ÒªÓÃÓÚÖ´ĞĞ·Ç²éÑ¯Óï¾ä
-     * @param cmdText SQL Óï¾ä
-     * @return ·Ç¸ºÊı:Õı³£Ö´ĞĞ; -1:Ö´ĞĞ´íÎó; -2:Á¬½Ó´íÎó
+     * æ‰§è¡Œ SQL è¯­å¥,è¿”å›ç»“æœä¸ºæ•´å‹
+     * ä¸»è¦ç”¨äºæ‰§è¡ŒéæŸ¥è¯¢è¯­å¥
+     * @param cmdText SQL è¯­å¥
+     * @return éè´Ÿæ•°:æ­£å¸¸æ‰§è¡Œ; -1:æ‰§è¡Œé”™è¯¯; -2:è¿æ¥é”™è¯¯
      */
     public static int ExecSql(Connection conn, String cmdText)
     {
@@ -211,11 +250,11 @@ public class DBUtil {
         return i;
     }
     /**
-     * Ö´ĞĞ SQL Óï¾ä,·µ»Ø½á¹ûÎªÕûĞÍ
-     * Ö÷ÒªÓÃÓÚÖ´ĞĞ·Ç²éÑ¯Óï¾ä
-     * @param cmdText ĞèÒª ? ²ÎÊıµÄ SQL Óï¾ä
-     * @param cmdParams SQL Óï¾äµÄ²ÎÊı±í
-     * @return ·Ç¸ºÊı:Õı³£Ö´ĞĞ; -1:Ö´ĞĞ´íÎó; -2:Á¬½Ó´íÎó
+     * æ‰§è¡Œ SQL è¯­å¥,è¿”å›ç»“æœä¸ºæ•´å‹
+     * ä¸»è¦ç”¨äºæ‰§è¡ŒéæŸ¥è¯¢è¯­å¥
+     * @param cmdText éœ€è¦ ? å‚æ•°çš„ SQL è¯­å¥
+     * @param cmdParams SQL è¯­å¥çš„å‚æ•°è¡¨
+     * @return éè´Ÿæ•°:æ­£å¸¸æ‰§è¡Œ; -1:æ‰§è¡Œé”™è¯¯; -2:è¿æ¥é”™è¯¯
      */
     public static int ExecSql(String cmdText, Object... cmdParams)
     {
@@ -237,12 +276,12 @@ public class DBUtil {
         return i;
     }
     /**
-     * Ö´ĞĞ SQL Óï¾ä,·µ»Ø½á¹ûÎªÕûĞÍ
-     * Ö÷ÒªÓÃÓÚÖ´ĞĞ·Ç²éÑ¯Óï¾ä
-     * @param conn Êı¾İ¿âÁ¬½Ó
-     * @param cmdText ĞèÒª ? ²ÎÊıµÄ SQL Óï¾ä
-     * @param cmdParams SQL Óï¾äµÄ²ÎÊı±í
-     * @return ·Ç¸ºÊı:Õı³£Ö´ĞĞ; -1:Ö´ĞĞ´íÎó; -2:Á¬½Ó´íÎó
+     * æ‰§è¡Œ SQL è¯­å¥,è¿”å›ç»“æœä¸ºæ•´å‹
+     * ä¸»è¦ç”¨äºæ‰§è¡ŒéæŸ¥è¯¢è¯­å¥
+     * @param conn æ•°æ®åº“è¿æ¥
+     * @param cmdText éœ€è¦ ? å‚æ•°çš„ SQL è¯­å¥
+     * @param cmdParams SQL è¯­å¥çš„å‚æ•°è¡¨
+     * @return éè´Ÿæ•°:æ­£å¸¸æ‰§è¡Œ; -1:æ‰§è¡Œé”™è¯¯; -2:è¿æ¥é”™è¯¯
      */
     public static int ExecSql(Connection conn, String cmdText, Object... cmdParams)
     {
@@ -264,8 +303,8 @@ public class DBUtil {
         return i;
     }
     /**
-     * ·µ»Ø½á¹û¼¯µÄµÚÒ»ĞĞµÄÒ»ÁĞµÄÖµ,ÆäËûºöÂÔ
-     * @param cmdText SQL Óï¾ä
+     * è¿”å›ç»“æœé›†çš„ç¬¬ä¸€è¡Œçš„ä¸€åˆ—çš„å€¼,å…¶ä»–å¿½ç•¥
+     * @param cmdText SQL è¯­å¥
      * @return
      */
     public static Object ExecScalar(String cmdText)
@@ -276,9 +315,9 @@ public class DBUtil {
         return obj;
     }
     /**
-     * ·µ»Ø½á¹û¼¯µÄµÚÒ»ĞĞµÄÒ»ÁĞµÄÖµ,ÆäËûºöÂÔ
-     * @param conn Êı¾İ¿âÁ¬½Ó
-     * @param cmdText SQL Óï¾ä
+     * è¿”å›ç»“æœé›†çš„ç¬¬ä¸€è¡Œçš„ä¸€åˆ—çš„å€¼,å…¶ä»–å¿½ç•¥
+     * @param conn æ•°æ®åº“è¿æ¥
+     * @param cmdText SQL è¯­å¥
      * @return
      */
     public static Object ExecScalar(Connection conn, String cmdText)
@@ -289,9 +328,9 @@ public class DBUtil {
         return obj;
     }
     /**
-     * ·µ»Ø½á¹û¼¯µÄµÚÒ»ĞĞµÄÒ»ÁĞµÄÖµ,ÆäËûºöÂÔ
-     * @param cmdText ĞèÒª ? ²ÎÊıµÄ SQL Óï¾ä
-     * @param cmdParams SQL Óï¾äµÄ²ÎÊı±í
+     * è¿”å›ç»“æœé›†çš„ç¬¬ä¸€è¡Œçš„ä¸€åˆ—çš„å€¼,å…¶ä»–å¿½ç•¥
+     * @param cmdText éœ€è¦ ? å‚æ•°çš„ SQL è¯­å¥
+     * @param cmdParams SQL è¯­å¥çš„å‚æ•°è¡¨
      * @return
      */
     public static Object ExecScalar(String cmdText, Object... cmdParams)
@@ -302,10 +341,10 @@ public class DBUtil {
         return obj;
     }
     /**
-     * ·µ»Ø½á¹û¼¯µÄµÚÒ»ĞĞµÄÒ»ÁĞµÄÖµ,ÆäËûºöÂÔ
-     * @param conn Êı¾İ¿âÁ¬½Ó
-     * @param cmdText ĞèÒª ? ²ÎÊıµÄ SQL Óï¾ä
-     * @param cmdParams SQL Óï¾äµÄ²ÎÊı±í
+     * è¿”å›ç»“æœé›†çš„ç¬¬ä¸€è¡Œçš„ä¸€åˆ—çš„å€¼,å…¶ä»–å¿½ç•¥
+     * @param conn æ•°æ®åº“è¿æ¥
+     * @param cmdText éœ€è¦ ? å‚æ•°çš„ SQL è¯­å¥
+     * @param cmdParams SQL è¯­å¥çš„å‚æ•°è¡¨
      * @return
      */
     public static Object ExecScalar(Connection conn, String cmdText, Object... cmdParams)
@@ -316,8 +355,8 @@ public class DBUtil {
         return obj;
     }
     /**
-     * ·µ»ØÒ»¸ö ResultSet
-     * @param cmdText SQL Óï¾ä
+     * è¿”å›ä¸€ä¸ª ResultSet
+     * @param cmdText SQL è¯­å¥
      * @return
      */
     public static ResultSet getResultSet(String cmdText)
@@ -338,9 +377,9 @@ public class DBUtil {
         return null;
     }
     /**
-     * ·µ»ØÒ»¸ö ResultSet
+     * è¿”å›ä¸€ä¸ª ResultSet
      * @param conn
-     * @param cmdText SQL Óï¾ä
+     * @param cmdText SQL è¯­å¥
      * @return
      */
     public static ResultSet getResultSet(Connection conn, String cmdText)
@@ -361,9 +400,9 @@ public class DBUtil {
         return null;
     }
     /**
-     * ·µ»ØÒ»¸ö ResultSet
-     * @param cmdText ĞèÒª ? ²ÎÊıµÄ SQL Óï¾ä
-     * @param cmdParams SQL Óï¾äµÄ²ÎÊı±í
+     * è¿”å›ä¸€ä¸ª ResultSet
+     * @param cmdText éœ€è¦ ? å‚æ•°çš„ SQL è¯­å¥
+     * @param cmdParams SQL è¯­å¥çš„å‚æ•°è¡¨
      * @return
      */
     public static ResultSet getResultSet(String cmdText, Object... cmdParams)
@@ -384,10 +423,10 @@ public class DBUtil {
         return null;
     }
     /**
-     * ·µ»ØÒ»¸ö ResultSet
-     * @param conn Êı¾İ¿âÁ¬½Ó
-     * @param cmdText ĞèÒª ? ²ÎÊıµÄ SQL Óï¾ä
-     * @param cmdParams SQL Óï¾äµÄ²ÎÊı±í
+     * è¿”å›ä¸€ä¸ª ResultSet
+     * @param conn æ•°æ®åº“è¿æ¥
+     * @param cmdText éœ€è¦ ? å‚æ•°çš„ SQL è¯­å¥
+     * @param cmdParams SQL è¯­å¥çš„å‚æ•°è¡¨
      * @return
      */
     public static ResultSet getResultSet(Connection conn, String cmdText, Object... cmdParams)
@@ -504,5 +543,4 @@ public class DBUtil {
         	ex.printStackTrace();
         }
     }
-
 }
