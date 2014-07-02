@@ -1,6 +1,11 @@
-package com.merlini.testNGAppium;
+package com.merlini.common;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DBUtil {
 	/**
@@ -543,4 +548,5 @@ public class DBUtil {
         	ex.printStackTrace();
         }
     }
+
 }

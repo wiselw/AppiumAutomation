@@ -1,11 +1,14 @@
-package com.merlini.testNGAppium;
-
-import java.util.List;
+package com.merlini.app.page;
 
 import io.appium.java_client.AppiumDriver;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
+import com.merlini.app.common.AppiumDriverExpectedCondition;
+import com.merlini.app.common.AppiumDriverWait;
 
 public class PageBase {
 	public AppiumDriver driver;

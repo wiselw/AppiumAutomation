@@ -1,10 +1,9 @@
-package com.merlini.testNGAppium;
+package com.merlini.common;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
-public class Base {
+public class BaseCase {
 	public final static int ELEMENT_FIND_TIMEOUT = Integer.parseInt(Config.getConfBykey("element.find.timeout"));
 	public final static int DRIVER_RESPONSE_TIMEOUT = Integer.parseInt(Config.getConfBykey("driver.response.timeout"));
 	public final static int PAGE_LOAD_TIMEOUT = Integer.parseInt(Config.getConfBykey("page.load.timeout"));

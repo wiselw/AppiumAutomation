@@ -1,4 +1,4 @@
-package com.merlini.testNGAppium;
+package com.merlini.app.page;
 
 public enum Navi {
 	Flight,
@@ -7,4 +7,5 @@ public enum Navi {
 	Hotel,
 	Money,
 	Tuan
+
 }

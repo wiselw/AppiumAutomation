@@ -1,15 +1,12 @@
-package com.merlini.testNGAppium;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.testng.Reporter;
+package com.merlini.app.page;
 
 import io.appium.java_client.AppiumDriver;
 
-public class AppHomePage extends PageBase{
-	
-	
-	public AppHomePage(AppiumDriver driver){
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+public class HomePage extends PageBase{
+	public HomePage(AppiumDriver driver){
 		//
 		this.driver=driver;
 	}
@@ -36,6 +33,5 @@ public class AppHomePage extends PageBase{
         	break;
         }
 	}
-	
 
 }

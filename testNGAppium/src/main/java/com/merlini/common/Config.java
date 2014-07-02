@@ -1,7 +1,6 @@
-package com.merlini.testNGAppium;
+package com.merlini.common;
 
 import java.io.UnsupportedEncodingException;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class Config {
