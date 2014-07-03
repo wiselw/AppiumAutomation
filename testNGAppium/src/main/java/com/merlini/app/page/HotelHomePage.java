@@ -1,10 +1,18 @@
 package com.merlini.app.page;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
 
 public class HotelHomePage extends PageBase {
 	public HotelHomePage(AppiumDriver driver){
@@ -21,16 +29,21 @@ public class HotelHomePage extends PageBase {
 	}
 	public void setDate(){
 		//
-		List<WebElement> listTextView=getElementsByClassAndIndex("android.widget.LinearLayout",0);
-		System.out.println(listTextView.size());
-		for(WebElement element : listTextView){
-			System.out.println(element.getAttribute("text"));
-//			if (element.getText().contains("年")){
-//				element.click();
-//				break;
-//			}
+		driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.LinearLayout\").childSelector(new UiSelector().className(\"android.widget.TextView\").text(\"入住\")).index(0)").click();
+        MobileElement ele=new MobileElement((RemoteWebElement) driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.view.View\").index(5)"),driver);
+        Point pc=ele.getCenter();
+        Point p= ele.getLocation();
+        System.out.println("x:"+p.getX()+",y:"+p.getY());
+        TouchAction ta=new TouchAction(driver);
+        ta.tap(pc.x,pc.y).perform();
+        File Screenshot= driver.getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(Screenshot, new File("APP.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
+        
 	}
 
 }

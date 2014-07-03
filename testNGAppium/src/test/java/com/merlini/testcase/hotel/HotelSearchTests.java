@@ -50,7 +50,7 @@ public class HotelSearchTests extends BaseCase{
 
   @AfterMethod
   public void afterMethod() {
-	  driver.quit();
+	  //driver.quit();
   }
 
 }
