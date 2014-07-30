@@ -18,13 +18,13 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 
+import com.merlini.app.common.AppHelper;
 import com.merlini.app.page.HomePage;
 import com.merlini.app.page.HotelHomePage;
 import com.merlini.app.page.Navi;
 import com.merlini.common.BaseCase;
 
 public class HotelSearchTests extends BaseCase{
-	private AppiumDriver driver;
 	@Test(description="验证品牌")
 	public void HotelPPTest() throws InterruptedException {
 		  HomePage homePage=new HomePage(driver);
@@ -63,18 +63,7 @@ public class HotelSearchTests extends BaseCase{
   @BeforeMethod
   public void beforeMethod() throws MalformedURLException {
 	Reporter.log("setUp");
-	File appPath =new File("D://adt-bundle-windows-x86");
-	File app = new File(appPath, "Ctrip_Wireless_View_sit15.apk");
-	DesiredCapabilities capabilities = new DesiredCapabilities();
-	capabilities.setCapability(CapabilityType.BROWSER_NAME, "");
-	capabilities.setCapability("platformName", "Android");
-	capabilities.setCapability("deviceName","V849DYLNVSNVZSIZ");//bbc4e9a//1844d244//V849DYLNVSNVZSIZ
-	capabilities.setCapability("platformVersion", "4.2.2");
-	capabilities.setCapability("app", app.getAbsolutePath());
-	capabilities.setCapability("app-package", "ctrip.android.view");
-	capabilities.setCapability("app-activity", "ctrip.android.view.home.CtripSplashActivity");
-	driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
-	//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	driver=AppHelper.InitializeDriver("ctrip.android.view","ctrip.android.view.home.CtripSplashActivity");
   }
 
   @AfterMethod

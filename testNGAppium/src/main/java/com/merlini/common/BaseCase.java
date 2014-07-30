@@ -1,5 +1,7 @@
 package com.merlini.common;
 
+import io.appium.java_client.AppiumDriver;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -9,11 +11,11 @@ public class BaseCase {
 	public final static int PAGE_LOAD_TIMEOUT = Integer.parseInt(Config.getConfBykey("page.load.timeout"));
 	public final static int JAVASCRIPT_EXCUTE_TIMEOUT = Integer.parseInt(Config.getConfBykey("javascript.excute.timeout"));
 	/**
-	 * AppiumDriverWait 绛夊緟鏃堕棿
+	 * AppiumDriverWait 等待时间
 	 */
 	public final static int WAIT_TIMEOUT_INSECONDS = Integer.parseInt(Config.getConfBykey("wait.TimeOutInSeconds"));
 	/**
-	 * AppiumDriverWait 杞鏃堕棿
+	 * AppiumDriverWait 轮询时间
 	 */
 	public final static int WAIT_SLEEPINMILLS=Integer.parseInt(Config.getConfBykey("wait.sleepInMillis"));
 
@@ -24,5 +26,6 @@ public class BaseCase {
         String dateString = formatter.format(currentTime);
         return dateString;
     }
+    public AppiumDriver driver=null;
 
 }

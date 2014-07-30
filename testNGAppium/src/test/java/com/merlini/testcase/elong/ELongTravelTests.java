@@ -15,8 +15,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import com.merlini.app.common.AppiumDriverExpectedCondition;
 import com.merlini.app.common.AppiumDriverWait;
+import com.merlini.app.common.AppiumExpectedCondition;
 import com.merlini.common.BaseCase;
 
 public class ELongTravelTests extends BaseCase{
@@ -47,7 +47,7 @@ public class ELongTravelTests extends BaseCase{
   public void f() {
 	  AppiumDriverWait wait=new AppiumDriverWait(driver);
 	  WebElement ele=
-		wait.until( new AppiumDriverExpectedCondition<WebElement>(){
+		wait.until( new AppiumExpectedCondition<WebElement>(){
 			public WebElement apply(AppiumDriver driver){
 				return driver.findElementByXPath("//android.widget.TextView[@text,'酒店']");
 			}

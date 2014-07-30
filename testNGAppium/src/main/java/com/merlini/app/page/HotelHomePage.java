@@ -24,7 +24,7 @@ public class HotelHomePage extends PageBase {
 		//
 		this.driver=driver;
 	}
-	//private WebElement citySetButton=driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.TextView\").text(\"æˆ‘é™„è¿‘çš„é…’åº—\")");
+	//private WebElement citySetButton=driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.TextView\").text(\"ÎÒ¸½½üµÄ¾Æµê\")");
 
 	public void setCity(String city){
 		//
@@ -46,17 +46,17 @@ public class HotelHomePage extends PageBase {
 		List<WebElement> lisElement= driver.findElementsByAndroidUIAutomator("new UiSelector().className(\"android.widget.TextView\").text(\""+city+"\")");
 		IAssert.assertTrue(lisElement.size()>0,city);
 		System.out.println(lisElement.size());
-		driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.EditText\").index(0)").sendKeys("åŒ—äº¬");
+		driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.EditText\").index(0)").sendKeys("±±¾©");
 		
 		List<WebElement> lisElement1= driver.findElementsByAndroidUIAutomator("new UiSelector().className(\"android.widget.TextView\").text(\""+city+"\")");
 		System.out.println(lisElement1.size()>0);
-		IAssert.assertTrue(lisElement1.size()>0,"åŒ—äº¬");
-		//driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.EditText\").text(\"ä¸­æ–‡/æ‹¼éŸ³/é¦–å­—æ¯/è‹±æ–‡\")").click();
+		IAssert.assertTrue(lisElement1.size()>0,"±±¾©");
+		//driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.EditText\").text(\"ÖĞÎÄ/Æ´Òô/Ê××ÖÄ¸/Ó¢ÎÄ\")").click();
 		//driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.TextView\").text(\""+city+"\")").click();
 	}
 	public void setDate(){
 		//
-		driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.LinearLayout\").childSelector(new UiSelector().className(\"android.widget.TextView\").text(\"å…¥ä½\")).index(0)").click();
+		driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.LinearLayout\").childSelector(new UiSelector().className(\"android.widget.TextView\").text(\"Èë×¡\")).index(0)").click();
         MobileElement ele=new MobileElement((RemoteWebElement) driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.view.View\").index(5)"),driver);
         Point pc=ele.getCenter();
         Point p= ele.getLocation();
@@ -74,14 +74,14 @@ public class HotelHomePage extends PageBase {
 	}
     public void checkPP(){
     	//
-//    	driver.findElement(By.name("å…³é”®å­—/ä½ç½®/å“ç‰Œ/é…’åº—å")).click();
-//    	driver.findElement(By.name("å“ç‰Œ")).click();
+//    	driver.findElement(By.name("¹Ø¼ü×Ö/Î»ÖÃ/Æ·ÅÆ/¾ÆµêÃû")).click();
+//    	driver.findElement(By.name("Æ·ÅÆ")).click();
     	List<WebElement> list=getElementsByClassAndIndex("android.widget.TextView",0);
     	list.get(3).click();
     	WebElement searchEdit =getElementByIndex("android.widget.EditText",0);
     	searchEdit.click();
     	WebElement searchEdit1 =getElementByIndex("android.widget.EditText",0);
-    	searchEdit1.sendKeys("ä¸Šæµ·");
+    	searchEdit1.sendKeys("ÉÏº£");
     	//clear(searchEdit1);
 //    	System.out.println(list.size());
 //    	for(WebElement ele : list){
