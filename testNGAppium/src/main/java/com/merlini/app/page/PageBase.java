@@ -61,8 +61,20 @@ public class PageBase {
 	public WebElement findButtonElementByText(String text){
 		return driver.findElementByAndroidUIAutomator("new UiSelector().className(\"android.widget.Button\").text(\""+text+"\")");
 	}
-	public List<WebElement> findElementsByDescription(String elementType,String desc){
-		return driver.findElementsByAndroidUIAutomator("new UiSelector().className(\"android.widget."+elementType+"\").description(\""+desc+"\")"); 
+	/**
+	 * 根据控件description抓取批量元素
+	 * @param elementType
+	 * @param desc
+	 * @return
+	 */
+	public List<WebElement> findElementsByDescription(final String elementType,final String desc){
+		AppiumDriverWait wait=new AppiumDriverWait(driver);
+		List<WebElement> ele= wait.until( new AppiumExpectedCondition<List<WebElement>>(){
+			public List<WebElement> apply(AppiumDriver driver){
+				return driver.findElementsByAndroidUIAutomator("new UiSelector().className(\"android.widget."+elementType+"\").description(\""+desc+"\")");
+			}
+		});
+		return ele;//driver.findElementsByAndroidUIAutomator("new UiSelector().className(\"android.widget."+elementType+"\").description(\""+desc+"\")"); 
 	}
 	public List<WebElement> findElementsByIndex(String elementType,int index){
 		return driver.findElementsByAndroidUIAutomator("new UiSelector().className(\"android.widget."+elementType+"\").instant("+index+")"); 
@@ -105,6 +117,5 @@ public class PageBase {
 
 		    };
 		  }
-    
    
 }
