@@ -5,6 +5,11 @@ import io.appium.java_client.AppiumDriver;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.testng.ITestResult;
+import org.testng.annotations.AfterMethod;
+
+import com.merlini.app.common.AppHelper;
+
 public class BaseCase {
 	public final static int ELEMENT_FIND_TIMEOUT = Integer.parseInt(Config.getConfBykey("element.find.timeout"));
 	public final static int DRIVER_RESPONSE_TIMEOUT = Integer.parseInt(Config.getConfBykey("driver.response.timeout"));
@@ -27,5 +32,13 @@ public class BaseCase {
         return dateString;
     }
     public AppiumDriver driver=null;
+    @AfterMethod
+    public void afterMethod(ITestResult result) {
+  	  if(!result.isSuccess()){
+  		  //
+  		//´íÎó½ØÍ¼
+  		AppHelper.takeScreenShoot(driver); 
+  	  }
+    }
 
 }

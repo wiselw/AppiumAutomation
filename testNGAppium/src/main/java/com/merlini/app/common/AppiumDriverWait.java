@@ -15,7 +15,7 @@ import com.merlini.common.Config;
 
 
 public class AppiumDriverWait extends FluentWait<AppiumDriver>{
-	//é»˜è®¤è½®è¯¢æ—¶é—´(æ¯«ç§’)
+	//Ä¬ÈÏÂÖÑ¯Ê±¼ä(ºÁÃë)
 	public final static long DEFAULT_POLLINGEVERY_TIMEMILLS = Integer.parseInt(Config.getConfBykey("wait.sleepInMillis"));
 	public final static long DEFAULT_TIMEOUT_INSECONDS = Integer.parseInt(Config.getConfBykey("wait.TimeOutInSeconds"));
 	/**
